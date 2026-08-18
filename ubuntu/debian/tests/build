@@ -10,13 +10,12 @@ WORKDIR=$(mktemp -d)
 cd $WORKDIR
 
 cat <<EOF > CMakeLists.txt
-cmake_minimum_required(VERSION 3.5.1 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.22.1 FATAL_ERROR)
 
 project(example)
 
-# Find the gz-plugin4 library
+# Find the gz-plugin library
 find_package(gz-plugin REQUIRED COMPONENTS all)
-#include_directories(\${gz-plugin4_INCLUDE_DIRS})
 add_executable(plugin_test plugin_test.cc)
 target_link_libraries(plugin_test
   PRIVATE
@@ -40,7 +39,7 @@ class CautiousBot : public virtual Drive
 {
 };
 
-IGNITION_ADD_PLUGIN(CautiousBot,
+GZ_ADD_PLUGIN(CautiousBot,
     CautiousBot::Drive)
 
 int main(int argc, char** argv) {
